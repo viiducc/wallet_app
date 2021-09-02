@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_app/routes/EnterPIN/enter_pin_screen.dart';
-import 'package:wallet_app/routes/OnBoard/onboard_screen.dart';
+import 'package:wallet_app/routes/Login/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'TitilliumWeb'),
       debugShowCheckedModeBanner: false,
-      home: EnterPIN(),
+      home: Login(),
     );
   }
 }

@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wallet_app/routes/Widgets/num_keyboard_widget.dart';
 
-class EnterPIN extends StatefulWidget {
-  const EnterPIN({Key? key}) : super(key: key);
+class CreatePIN extends StatefulWidget {
+  const CreatePIN({Key? key}) : super(key: key);
 
   @override
-  _EnterPINState createState() => _EnterPINState();
+  _CreatePINState createState() => _CreatePINState();
 }
 
-class _EnterPINState extends State<EnterPIN> {
+class _CreatePINState extends State<CreatePIN> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Verification Required',
+          'Create a PIN',
           style: TextStyle(
               color: Color(0xFF0D1F3C),
               fontSize: 26,
@@ -38,8 +38,9 @@ class _EnterPINState extends State<EnterPIN> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
-            'Please enter your PIN to proceed',
-            style: TextStyle(fontSize: 15),
+            'Enhance the security of your account by creating \na PIN code',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 15, color: Color(0xFF485068)),
           ),
           // const SizedBox(
           //   height: 149,
