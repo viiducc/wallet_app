@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_app/routes/Login/login_screen.dart';
 import 'package:wallet_app/routes/Widgets/password_field_widget.dart';
+import 'package:wallet_app/routes/Widgets/primary_button_widget.dart';
 import 'package:wallet_app/routes/Widgets/text_field_widget.dart';
 
 class SignUp extends StatefulWidget {
@@ -16,7 +17,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  bool _isObscure = true;
+  final bool _isObscure = true;
   bool isloading = false;
 
   @override
@@ -84,30 +85,38 @@ class _SignUpState extends State<SignUp> {
                           const SizedBox(
                             height: 13,
                           ),
-                          OutlinedButton(
-                            onPressed: () {
-                              // Navigator.push(
-                              //         context,
-                              //         MaterialPageRoute(
-                              //             builder: (context) => const Welcome()))
-                            },
-                            style: OutlinedButton.styleFrom(
-                              backgroundColor: Color(0xFF347AF0),
-                              fixedSize: const Size(200, 46),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(23)),
-                              side: const BorderSide(
-                                color: Color(0xFF347AF0),
-                              ),
-                            ),
-                            child: const Text(
-                              'Let’s Get Started',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                          // OutlinedButton(
+                          //   onPressed: () {
+                          //     // Navigator.push(
+                          //     //         context,
+                          //     //         MaterialPageRoute(
+                          //     //             builder: (context) => const Welcome()))
+                          //   },
+                          //   style: OutlinedButton.styleFrom(
+                          //     backgroundColor: Color(0xFF347AF0),
+                          //     fixedSize: const Size(200, 46),
+                          //     shape: RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.circular(23)),
+                          //     side: const BorderSide(
+                          //       color: Color(0xFF347AF0),
+                          //     ),
+                          //   ),
+                          //   child: const Text(
+                          //     'Let’s Get Started',
+                          //     style: TextStyle(
+                          //         color: Colors.white,
+                          //         fontSize: 19,
+                          //         fontWeight: FontWeight.bold),
+                          //   ),
+                          // ),
+                          PrimaryButton(
+                              textButton: 'Let’s Get Started',
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Login()));
+                              }),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

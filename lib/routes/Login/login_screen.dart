@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_app/routes/SignUp/sign_up_screen.dart';
+import 'package:wallet_app/routes/Welcome/welcome_screen.dart';
 import 'package:wallet_app/routes/Widgets/password_field_widget.dart';
+import 'package:wallet_app/routes/Widgets/primary_button_widget.dart';
 import 'package:wallet_app/routes/Widgets/text_field_widget.dart';
 
 class Login extends StatefulWidget {
@@ -75,19 +77,14 @@ class _LoginState extends State<Login> {
                       ],
                     ),
                     const SizedBox(height: 110),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          fixedSize: const Size(200, 46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(23),
-                          ),
-                          backgroundColor: Color(0xff347AF0)),
-                      onPressed: () {},
-                      child: const Text(
-                        'Login',
-                        style: TextStyle(color: Colors.white, fontSize: 19),
-                      ),
-                    ),
+                    PrimaryButton(
+                        textButton: 'Login',
+                        onPressed: () {
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => const Welcome()));
+                        }),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
