@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_app/routes/SignUp/sign_up_screen.dart';
+import 'package:wallet_app/routes/Widgets/password_field_widget.dart';
+import 'package:wallet_app/routes/Widgets/text_field_widget.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -8,6 +11,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
@@ -46,42 +52,11 @@ class _LoginState extends State<Login> {
                         topRight: Radius.circular(20))),
                 child: Column(
                   children: [
-                    const TextField(
-                      style: TextStyle(fontSize: 19, color: Color(0xFF0D1F3C)),
-                      decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: 'Email address',
-                          //hintText: 'Email address',
-                          labelStyle: TextStyle(
-                              fontSize: 19,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFF3D4C63))),
-                    ),
+                    TextFieldWidget(
+                        label: 'Email address', controller: emailController),
                     const SizedBox(height: 25),
-                    TextField(
-                      obscureText: _isObscure,
-                      obscuringCharacter: '•',
-                      decoration: InputDecoration(
-                          border: const UnderlineInputBorder(),
-                          labelText: 'Password',
-                          labelStyle: const TextStyle(
-                              fontSize: 19,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFF3D4C63)),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _isObscure == false
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined,
-                              color: Color(0xFFB5BBC9),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _isObscure = !_isObscure;
-                              });
-                            },
-                          )),
-                    ),
+                    PasswordFieldWidget(
+                        label: 'Password', controller: passwordController),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -123,7 +98,10 @@ class _LoginState extends State<Login> {
                                 color: Color(0xFF485068))),
                         TextButton(
                           onPressed: () {
-                            //Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateAccount()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignUp()));
                           },
                           child: const Text(
                             'Sign Up',

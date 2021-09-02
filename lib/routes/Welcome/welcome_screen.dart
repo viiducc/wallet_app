@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_app/routes/Login/login_screen.dart';
+import 'package:wallet_app/routes/SignUp/sign_up_screen.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -46,7 +48,12 @@ class Welcome extends StatelessWidget {
                             borderRadius: BorderRadius.circular(23),
                           ),
                           backgroundColor: Colors.white),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Login()));
+                      },
                       child: const Text(
                         'Sign In',
                         style:
@@ -62,7 +69,12 @@ class Welcome extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                                 color: Colors.white)),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignUp()));
+                          },
                           child: const Text(
                             'Sign Up',
                             style: TextStyle(
