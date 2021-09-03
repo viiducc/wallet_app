@@ -18,7 +18,7 @@ class TextFieldWidget extends StatelessWidget {
         labelStyle: const TextStyle(
           fontSize: 19,
           fontWeight: FontWeight.w400,
-          color: Color(0xFFB5BBC9),
+          color: Color(0xFF3D4C63),
         ),
       ),
     );

@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'TitilliumWeb'),
       debugShowCheckedModeBanner: false,
-      home: OnBoard(),
+      home: const OnBoard(),
     );
   }
 }

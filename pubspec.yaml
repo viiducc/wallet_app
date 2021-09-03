@@ -66,6 +66,8 @@ flutter:
     - assets/images/welcome/
     - assets/images/login/
     - assets/images/signup/
+    - assets/images/checkemail/
+
 
     - assets/icons/
     - assets/icons/numkeyboard/

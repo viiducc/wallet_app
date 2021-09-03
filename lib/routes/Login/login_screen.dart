@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_app/routes/EnterPIN/enter_pin_screen.dart';
+import 'package:wallet_app/routes/ForgotPassword/forgot_password_screen.dart';
 import 'package:wallet_app/routes/SignUp/sign_up_screen.dart';
-import 'package:wallet_app/routes/Welcome/welcome_screen.dart';
 import 'package:wallet_app/routes/Widgets/password_field_widget.dart';
 import 'package:wallet_app/routes/Widgets/primary_button_widget.dart';
 import 'package:wallet_app/routes/Widgets/text_field_widget.dart';
@@ -24,6 +25,7 @@ class _LoginState extends State<Login> {
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xffedf1f9),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         title: const Text(
           "Welcome Back!",
@@ -64,7 +66,11 @@ class _LoginState extends State<Login> {
                       children: [
                         TextButton(
                           onPressed: () {
-                            // Navigator.push(context, MaterialPageRoute(builder: (context)=>Forgot()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ForgotPassword()));
                           },
                           child: const Text(
                             'Forgot your password?',
@@ -80,10 +86,10 @@ class _LoginState extends State<Login> {
                     PrimaryButton(
                         textButton: 'Login',
                         onPressed: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => const Welcome()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const EnterPIN()));
                         }),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

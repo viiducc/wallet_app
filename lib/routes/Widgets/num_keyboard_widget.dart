@@ -53,6 +53,7 @@ class Number extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: Colors.transparent,
       onTap: () {},
       child: Container(
         height: 80,

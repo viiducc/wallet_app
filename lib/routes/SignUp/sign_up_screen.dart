@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_app/routes/CreatePIN/create_pin_screen.dart';
 import 'package:wallet_app/routes/Login/login_screen.dart';
 import 'package:wallet_app/routes/Widgets/password_field_widget.dart';
 import 'package:wallet_app/routes/Widgets/primary_button_widget.dart';
@@ -115,7 +116,8 @@ class _SignUpState extends State<SignUp> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const Login()));
+                                        builder: (context) =>
+                                            const CreatePIN()));
                               }),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
