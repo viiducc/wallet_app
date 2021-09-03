@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_app/routes/Home/home_screen.dart';
 import 'package:wallet_app/routes/OnBoard/onboard_screen.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(fontFamily: 'TitilliumWeb'),
       debugShowCheckedModeBanner: false,
-      home: const OnBoard(),
+      home: const Home(),
     );
   }
 }
