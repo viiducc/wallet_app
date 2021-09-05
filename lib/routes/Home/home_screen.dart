@@ -19,6 +19,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    bool isKeyBoard = MediaQuery.of(context).viewInsets.bottom != 0;
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: const Color(0xFF99B9EE),
@@ -164,9 +166,13 @@ class _HomeState extends State<Home> {
                     TextFieldWidget(
                         label: 'Enter destination address',
                         controller: address),
-                    const SizedBox(
-                      height: 80,
-                    ),
+                    !isKeyBoard
+                        ? SizedBox(
+                            height: 80,
+                          )
+                        : SizedBox(
+                            height: 16,
+                          ),
                     OutlinedButton(
                       onPressed: () {},
                       style: OutlinedButton.styleFrom(
@@ -187,8 +193,14 @@ class _HomeState extends State<Home> {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
+                    !isKeyBoard
+                        ? SizedBox(
+                            height: 80,
+                          )
+                        : SizedBox(
+                            height: 16,
+                          ),
                     Container(
-                      margin: const EdgeInsets.only(top: 80),
                       padding: EdgeInsets.all(5),
                       // height: 100,
                       width: MediaQuery.of(context).size.width,
