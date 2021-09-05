@@ -15,11 +15,13 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   TextEditingController icxSend = TextEditingController();
   TextEditingController address = TextEditingController();
+  bool _isObscure = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFF99B9EE),
+        resizeToAvoidBottomInset: false,
+        backgroundColor: const Color(0xFF99B9EE),
         appBar: AppBar(
           elevation: 0,
           title: const Text(
@@ -83,25 +85,36 @@ class _HomeState extends State<Home> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'Hi, Vi Đức!',
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.w300),
                       ),
-                      Icon(
-                        Icons.visibility_off_outlined,
-                        size: 30,
-                      )
+                      IconButton(
+                        icon: Icon(
+                          _isObscure == false
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                            print(_isObscure);
+                          });
+                        },
+                      ),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
-                        children: const [
+                        children: [
                           Text(
-                            '*******',
+                            _isObscure ? '*******' : '123456',
                             style: TextStyle(fontSize: 25),
                           ),
                           SizedBox(
@@ -115,9 +128,9 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                       Row(
-                        children: const [
+                        children: [
                           Text(
-                            '******',
+                            _isObscure ? '*******' : '123456',
                             style: TextStyle(fontSize: 25),
                           ),
                           SizedBox(

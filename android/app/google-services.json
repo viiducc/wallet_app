@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1049174909647",
+    "project_id": "whollet-f30b0",
+    "storage_bucket": "whollet-f30b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049174909647:android:fc75bce862b42525938dba",
+        "android_client_info": {
+          "package_name": "com.example.wallet_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049174909647-9bm9eg8nbal3ncd6q7lsafhalgtsrlsh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRIWg9KdU6qhxSrLcmlLtsblO4PqbQw68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049174909647-9bm9eg8nbal3ncd6q7lsafhalgtsrlsh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1049174909647-kctoj39f81pd11ujal126tr82d49ppo3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.walletApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
