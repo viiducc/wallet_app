@@ -42,8 +42,9 @@ dependencies:
   cloud_firestore: ^2.5.1
   equatable: ^2.0.3
   flutter_bloc: ^7.2.0
-
-
+  crypt: ^4.0.1
+  intl: ^0.17.0
+  get_storage: ^2.0.3
 
 dev_dependencies:
   flutter_test:

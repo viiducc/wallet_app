@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypt/crypt.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:wallet_app/routes/Home/home_screen.dart';
+import 'package:wallet_app/routes/Login/login_screen.dart';
 import 'package:wallet_app/routes/Widgets/num_keyboard_widget.dart';
 
 class EnterPIN extends StatefulWidget {
@@ -10,6 +15,48 @@ class EnterPIN extends StatefulWidget {
 }
 
 class _EnterPINState extends State<EnterPIN> {
+  String _password = "", uid = '';
+
+  void addString(String index) {
+    setState(() {
+      if (_password.length < 4) _password += index.toString();
+      if (_password.length == 4) {
+        CheckPin();
+      }
+    });
+  }
+
+  void removeString() {
+    setState(() {
+      if (_password.length > 0)
+        _password = _password.substring(0, _password.length - 1);
+    });
+  }
+
+  Future<void> CheckPin() async {
+    uid = FirebaseAuth.instance.currentUser!.uid;
+    if (uid != '') {
+      print(
+          "HASH ${Crypt.sha256(_password, rounds: 10000, salt: 'anhtucute').hash}");
+      await FirebaseFirestore.instance.collection('users').doc(uid).get().then(
+        (DocumentSnapshot documentSnapshot) async {
+          if (documentSnapshot.exists) {
+            if (Crypt.sha256(_password, rounds: 10000, salt: 'anhtucute')
+                    .hash ==
+                documentSnapshot.get('pin'))
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Home()));
+            else {
+              await FirebaseAuth.instance.signOut();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Login()));
+            }
+          }
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,17 +100,20 @@ class _EnterPINState extends State<EnterPIN> {
                   child: Container(
                     width: 22,
                     height: 22,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        // color: i < _password.length
-                        //     ? Color(0xFF75BF72)
-                        //     : Color(0xFF9EA5B1),
-                        color: Color(0xFF75BF72)),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: i < _password.length
+                          ? Color(0xFF75BF72)
+                          : Color(0xFF9EA5B1),
+                    ),
                   ),
                 )
             ],
           ),
-          NumKeyBoard()
+          NumKeyBoard(
+            removeString: removeString,
+            pressAddString: addString,
+          )
         ],
       ),
     );

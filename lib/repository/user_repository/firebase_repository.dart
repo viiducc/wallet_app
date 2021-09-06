@@ -4,7 +4,7 @@ import 'package:wallet_app/repository/user_repository.dart';
 
 /// Registration and authentication via Firebase
 class FirebaseUserRepository extends UserRepository {
-  const FirebaseUserRepository();
+  FirebaseUserRepository();
 
   /// Email of the signed user
   @override
@@ -45,4 +45,14 @@ class FirebaseUserRepository extends UserRepository {
   /// Logout from Firebase
   @override
   Future<void> logOut() => FirebaseAuth.instance.signOut();
+
+  // @override
+  // Future<User> getUser() async {
+  //   return await FirebaseAuth.instance.currentUser;
+  // }
+
+  // @override
+  // Future<bool> isLoggedIn() async {
+  //   return await FirebaseAuth.instance.currentUser != null;
+  // }
 }

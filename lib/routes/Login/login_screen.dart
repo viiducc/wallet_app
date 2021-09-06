@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wallet_app/routes/EnterPIN/enter_pin_screen.dart';
 import 'package:wallet_app/routes/ForgotPassword/forgot_password_screen.dart';
@@ -16,8 +17,44 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  String _status = '';
   bool _isObscure = true;
+
+  Future<void> _checkLogin() async {
+    // if (_formKey.currentState!.validate()) {
+    //   setState(() {
+    //     _status = '';
+    //   });
+    // print('Email ${_emailController.text}');
+    // print('Pass ${_passwordController.text}');
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      if (userCredential.user != null) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const EnterPIN()));
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+        setState(() {
+          _status = 'No user found for that email.';
+        });
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+        setState(() {
+          _status = 'Wrong password provided for that user.';
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isKeyBoard = MediaQuery.of(context).viewInsets.bottom != 0;
@@ -82,15 +119,8 @@ class _LoginState extends State<Login> {
                         )
                       ],
                     ),
-                    const SizedBox(height: 110),
-                    PrimaryButton(
-                        textButton: 'Login',
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const EnterPIN()));
-                        }),
+                    const SizedBox(height: 80),
+                    PrimaryButton(textButton: 'Login', onPressed: _checkLogin),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

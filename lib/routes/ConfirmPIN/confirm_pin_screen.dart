@@ -64,7 +64,7 @@ class _ConfirmPINState extends State<ConfirmPIN> {
                 )
             ],
           ),
-          NumKeyBoard()
+          //NumKeyBoard()
         ],
       ),
     );

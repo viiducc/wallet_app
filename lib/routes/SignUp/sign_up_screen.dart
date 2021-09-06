@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypt/crypt.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icon_network/flutter_icon_network.dart';
 import 'package:wallet_app/routes/CreatePIN/create_pin_screen.dart';
 import 'package:wallet_app/routes/Login/login_screen.dart';
 import 'package:wallet_app/routes/Widgets/password_field_widget.dart';
@@ -18,8 +22,62 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  final bool _isObscure = true;
+  bool _isObscure = true;
   bool isloading = false;
+  String _status = '';
+
+  Future<void> _checkSignUp() async {
+    setState(() {
+      _status = '';
+    });
+    // if (_formKey.currentState!.validate()) {
+    // print("Email ${_emailController.text}");
+    // print("Email ${_passwordController.text}");
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      if (userCredential.user != null) {
+        final wallet = await FlutterIconNetwork.instance!.createWallet;
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user!.uid.toString())
+            .set({
+              'first_name': firstNameController.text,
+              'last_name': lastNameController.text,
+              'uid': userCredential.user!.uid.toString(),
+              'email': emailController.text,
+              'address': wallet.address,
+              'primary_key': wallet.privateKey,
+              'pin': {'pin': '1234'},
+            })
+            .then((value) => {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CreatePIN()))
+                })
+            .catchError((error) =>
+                // ignore: invalid_return_type_for_catch_error
+                print("Failed to add user: $error"));
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        setState(() {
+          _status = 'The password provided is too weak.';
+        });
+      } else if (e.code == 'email-already-in-use') {
+        setState(() {
+          _status = 'The account already exists for that email.';
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,38 +144,10 @@ class _SignUpState extends State<SignUp> {
                           const SizedBox(
                             height: 13,
                           ),
-                          // OutlinedButton(
-                          //   onPressed: () {
-                          //     // Navigator.push(
-                          //     //         context,
-                          //     //         MaterialPageRoute(
-                          //     //             builder: (context) => const Welcome()))
-                          //   },
-                          //   style: OutlinedButton.styleFrom(
-                          //     backgroundColor: Color(0xFF347AF0),
-                          //     fixedSize: const Size(200, 46),
-                          //     shape: RoundedRectangleBorder(
-                          //         borderRadius: BorderRadius.circular(23)),
-                          //     side: const BorderSide(
-                          //       color: Color(0xFF347AF0),
-                          //     ),
-                          //   ),
-                          //   child: const Text(
-                          //     'Let’s Get Started',
-                          //     style: TextStyle(
-                          //         color: Colors.white,
-                          //         fontSize: 19,
-                          //         fontWeight: FontWeight.bold),
-                          //   ),
-                          // ),
                           PrimaryButton(
                               textButton: 'Let’s Get Started',
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const CreatePIN()));
+                                _checkSignUp();
                               }),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
