@@ -29,6 +29,14 @@ class _HomeState extends State<Home> {
   bool _isObscure = true;
   String status = "Transfer";
 
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    icxSendController.dispose();
+    addressController.dispose();
+    super.dispose();
+  }
+
   void loadID() {
     if (uid == '')
       setState(() {
@@ -115,7 +123,7 @@ class _HomeState extends State<Home> {
           centerTitle: true,
           backgroundColor: const Color(0xFFEDF1F9),
           actions: [
-            CircleAvatar(
+            const CircleAvatar(
               child: Icon(
                 Icons.account_circle_outlined,
                 size: 30,
@@ -123,13 +131,12 @@ class _HomeState extends State<Home> {
               radius: 15,
               backgroundColor: Color(0xFFEDF1F9),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             IconButton(
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
+                logOut();
               },
               icon: Icon(Icons.logout, color: Color(0xFF0D1F3C)),
             ),
@@ -198,7 +205,9 @@ class _HomeState extends State<Home> {
                       Row(
                         children: [
                           Text(
-                            _isObscure ? '*******' : _balance.toString(),
+                            _isObscure
+                                ? '*******'
+                                : _balance.toStringAsFixed(4),
                             style: TextStyle(fontSize: 25),
                           ),
                           SizedBox(
@@ -216,7 +225,7 @@ class _HomeState extends State<Home> {
                           Text(
                             _isObscure
                                 ? '*******'
-                                : (_balance * 1.751423).toString(),
+                                : (_balance * 1.751423).toStringAsFixed(4),
                             style: TextStyle(fontSize: 25),
                           ),
                           SizedBox(
@@ -296,7 +305,7 @@ class _HomeState extends State<Home> {
                           borderRadius: BorderRadius.circular(5)),
                       child: Text(
                         address,
-                        style: TextStyle(fontSize: 22),
+                        style: TextStyle(fontSize: 16),
                       ),
                     ),
                     InkWell(
@@ -325,6 +334,55 @@ class _HomeState extends State<Home> {
             ),
           ],
         ));
+  }
+
+  Future<void> logOut() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            'Are you sure?',
+            style: TextStyle(
+                height: 2,
+                color: Color(0xFF313131),
+                fontWeight: FontWeight.bold,
+                fontSize: 20),
+          ),
+          content: const Text(
+            'You will be redirected to login ',
+            style: TextStyle(height: 2, color: Color(0xFF313131), fontSize: 18),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Yes',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFF96060))),
+              // color: Color(0xFFF96060))),
+              onPressed: () async {
+                //Log out user Firebase
+                await FirebaseAuth.instance.signOut();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Login()));
+              },
+            ),
+            TextButton(
+              child: const Text('No',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  )),
+              onPressed: () {
+                Navigator.of(context).pop(); //Dismiss the Dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 

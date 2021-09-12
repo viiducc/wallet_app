@@ -60,7 +60,7 @@ class _CreatePINState extends State<CreatePIN> {
   void CheckPin() {
     if (uid != '') {
       FirebaseFirestore.instance.collection('users').doc(uid).update(
-        {'pin': Crypt.sha256(_pass, rounds: 10000, salt: 'anhtucute').hash},
+        {'pin': Crypt.sha256(_pass, rounds: 10000, salt: 'viiducc').hash},
       );
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const Home()));

@@ -19,6 +19,13 @@ class _LoginState extends State<Login> {
   final TextEditingController passwordController = TextEditingController();
   String _status = '';
   bool _isObscure = true;
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   Future<void> _checkLogin() async {
     // if (_formKey.currentState!.validate()) {

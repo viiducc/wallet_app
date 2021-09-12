@@ -25,6 +25,15 @@ class _SignUpState extends State<SignUp> {
   bool _isObscure = true;
   bool isloading = false;
   String _status = '';
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   Future<void> _checkSignUp() async {
     setState(() {

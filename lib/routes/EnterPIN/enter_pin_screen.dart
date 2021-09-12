@@ -36,13 +36,10 @@ class _EnterPINState extends State<EnterPIN> {
   Future<void> CheckPin() async {
     uid = FirebaseAuth.instance.currentUser!.uid;
     if (uid != '') {
-      print(
-          "HASH ${Crypt.sha256(_password, rounds: 10000, salt: 'anhtucute').hash}");
       await FirebaseFirestore.instance.collection('users').doc(uid).get().then(
         (DocumentSnapshot documentSnapshot) async {
           if (documentSnapshot.exists) {
-            if (Crypt.sha256(_password, rounds: 10000, salt: 'anhtucute')
-                    .hash ==
+            if (Crypt.sha256(_password, rounds: 10000, salt: 'viiducc').hash ==
                 documentSnapshot.get('pin'))
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const Home()));
