@@ -178,7 +178,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Hi, ${firstName + ' ' + lastName}',
+                        'Hi, ${firstName + lastName}',
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.w300),
                       ),
